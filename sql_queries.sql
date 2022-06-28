@@ -1,0 +1,17 @@
+SELECT * FROM classes;
+SELECT name, credits FROM classes WHERE credits > 3;
+SELECT name, credits FROM classes WHERE credits % 2 = 0;
+SELECT * FROM enrollments WHERE student_id = 1 AND grade IS NULL;
+SELECT students.id, enrollments.class_id, enrollments.grade FROM students LEFT JOIN enrollments ON students.id=enrollments.student_id WHERE students.first_name = 'Tianna' AND grade IS NULL;
+SELECT students.id, enrollments.class_id, classes.name, enrollments.grade FROM students LEFT JOIN enrollments ON students.id=enrollments.student_id LEFT JOIN classes on enrollments.id=classes.id WHERE students.first_name = 'Tianna' AND grade IS NULL;
+SELECT * FROM students WHERE first_name ILIKE '%t%' OR last_name ILIKE '%t%' AND birthdate < '1986-01-01';
+SELECT AVG(AGE(birthdate)) FROM students;
+SELECT * FROM addresses WHERE city LIKE '% %';
+SELECT students.id, students.first_name, students.last_name, students.birthdate, addresses.line_1, addresses.city, addresses.state, addresses.zipcode FROM students LEFT JOIN addresses ON students.address_id=addresses.id WHERE addresses.city LIKE '% %';
+SELECT AVG(credits) FROM classes;
+SELECT students.first_name, students.last_name FROM students INNER JOIN enrollments on students.id=enrollments.student_id WHERE enrollments.grade = 'A';
+SELECT students.first_name, SUM(classes.credits) FROM students LEFT JOIN enrollments ON students.id=enrollments.student_id LEFT JOIN classes on enrollments.class_id=classes.id GROUP BY students.first_name;
+SELECT students.first_name, SUM(classes.credits) FROM students LEFT JOIN enrollments ON students.id=enrollments.student_id LEFT JOIN classes on enrollments.class_id=classes.id WHERE enrollments.grade IS NOT NULL GROUP BY students.first_name;
+SELECT enrollments.student_id, enrollments.class_id, classes.name, enrollments.grade FROM enrollments LEFT JOIN classes ON enrollments.class_id=classes.id;
+SELECT * FROM students WHERE birthdate >= '1982-01-01' AND birthdate < '1986-01-01';
+INSERT INTO enrollments (student_id, class_id, grade) VALUES ('5', '4', 'A');
